@@ -29,10 +29,9 @@ public final class SuffocationState {
         dynamicLightBoost = Math.max(0.0F, blocks);
     }
     public static void saveThenZeroGamma(Minecraft mc) {
-        savedGamma = mc.options.gamma;
-        mc.options.gamma = 0.0;
+        savedGamma = mc.options.gamma().get();
+        mc.options.gamma().set(0.0);
     }
     public static void restoreGamma(Minecraft mc) {
-        mc.options.gamma = savedGamma;
+        mc.options.gamma().set(savedGamma);
     }
-}
