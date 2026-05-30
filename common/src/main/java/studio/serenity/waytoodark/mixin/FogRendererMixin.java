@@ -1,14 +1,15 @@
 package studio.serenity.waytoodark.mixin;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.FogRenderer.FogMode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import studio.serenity.waytoodark.DynamicLightAdapter;
 import studio.serenity.waytoodark.SuffocationState;
+
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
     @Inject(method = "setupFog", at = @At("HEAD"), remap = true)
@@ -22,6 +23,5 @@ public class FogRendererMixin {
         if (!SuffocationState.shouldApplyDarkness()) return;
         RenderSystem.setShaderFogStart(0.0F);
         RenderSystem.setShaderFogEnd(SuffocationState.getEffectiveFogRadius());
-        RenderSystem.setShaderFogShape(net.minecraft.client.renderer.FogShape.CYLINDER);
     }
 }
