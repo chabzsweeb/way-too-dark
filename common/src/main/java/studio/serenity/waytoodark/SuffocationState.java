@@ -35,3 +35,4 @@ public final class SuffocationState {
     public static void restoreGamma(Minecraft mc) {
         mc.options.gamma().set(savedGamma);
     }
+}
