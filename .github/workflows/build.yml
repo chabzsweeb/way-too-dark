@@ -1,0 +1,17 @@
+name: Build Way Too Dark
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: chmod +x gradlew
+      - run: ./gradlew :fabric:build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: way-too-dark-fabric-1.19.2
+          path: fabric/build/libs/*.jar

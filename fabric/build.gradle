@@ -1,0 +1,35 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+configurations {
+    common           { canBeResolved = true;  canBeConsumed = false }
+    shadowCommon     { canBeResolved = false; canBeConsumed = false }
+    compileClasspath.extendsFrom   common
+    runtimeClasspath.extendsFrom   common
+    developmentFabric.extendsFrom  common
+}
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    include(implementation(annotationProcessor(
+        "io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}"
+    )))
+    common(project(path: ':common', configuration: 'namedElements'))     { transitive false }
+    shadowCommon(project(path: ':common', configuration: 'transformProductionFabric')) { transitive false }
+}
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") { expand version: project.version }
+}
+shadowJar {
+    configurations   = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+}
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier = ""
+}

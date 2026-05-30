@@ -1,0 +1,10 @@
+architectury {
+    common('fabric')
+}
+dependencies {
+    compileOnly "org.spongepowered:mixin:0.8.5"
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    implementation(annotationProcessor(
+        "io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"
+    ))
+}

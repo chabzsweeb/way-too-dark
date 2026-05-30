@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "way_too_dark",
+  "version": "${version}",
+  "name": "Way Too Dark",
+  "description": "Forces pitch-black nights that can't be bypassed by brightness or gamma hacks.",
+  "authors": [{ "name": "Serenity Studio" }],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["studio.serenity.waytoodark.fabric.WayTooDarkFabric"]
+  },
+  "mixins": ["way_too_dark.mixins.json"],
+  "depends": { "lambdynlights": ">=1.0.0" }
+}
