@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import studio.serenity.waytoodark.DynamicLightAdapter;
 import studio.serenity.waytoodark.SuffocationState;
 
-@Mixin(targets = "me.jellysquid.mods.sodium.client.render.chunk.RenderSectionManager", remap = false)
+@Mixin(targets = "me.jellysquid.mods.sodium.client.render.SodiumWorldRenderer", remap = false)
 public class FogRendererMixin {
 
-    @Inject(method = "update", at = @At("RETURN"), remap = false)
+    @Inject(method = "drawChunkLayer", at = @At("HEAD"), remap = false)
     private void wayTooDark$overrideFog(CallbackInfo ci) {
         if (!SuffocationState.shouldApplyDarkness()) return;
         SuffocationState.setDynamicLightBoost(DynamicLightAdapter.getDynamicLightRadius());
