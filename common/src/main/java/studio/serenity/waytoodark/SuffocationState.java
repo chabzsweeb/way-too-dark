@@ -15,7 +15,7 @@ public final class SuffocationState {
     public static boolean shouldApplyDarkness() {
         final Minecraft mc = Minecraft.getInstance();
         if (mc.level == null || mc.player == null) return false;
-        if (!Level.OVERWORLD.equals(mc.level.dimension())) return false;
+        // if (!Level.OVERWORLD.equals(mc.level.dimension())) return false;
         final long dayTime = mc.level.getDayTime() % 24_000L;
         if (dayTime >= NIGHT_START && dayTime <= NIGHT_END) return true;
         final Vec3 eye = mc.player.getEyePosition();
