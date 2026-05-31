@@ -16,7 +16,7 @@ public class FogRendererMixin {
     @Inject(method = "method_24873", at = @At("RETURN"), remap = false)
     private static void wayTooDark$overrideFog(
             Camera camera,
-            FogRenderer.FogMode fogMode,
+            Object fogMode,
             float viewDistance,
             int i,
             int j,
