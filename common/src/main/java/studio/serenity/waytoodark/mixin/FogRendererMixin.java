@@ -12,12 +12,14 @@ import studio.serenity.waytoodark.SuffocationState;
 
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
-    @Inject(method = "setupFog", at = @At("HEAD"), remap = true)
+
+    @Inject(method = "method_24873", at = @At("HEAD"), remap = false)
     private static void wayTooDark$sampleLight(Camera camera, FogRenderer.FogMode fogMode,
             float farPlaneDistance, boolean isFoggy, float partialTick, CallbackInfo ci) {
         SuffocationState.setDynamicLightBoost(DynamicLightAdapter.getDynamicLightRadius());
     }
-    @Inject(method = "setupFog", at = @At("RETURN"), remap = true)
+
+    @Inject(method = "method_24873", at = @At("RETURN"), remap = false)
     private static void wayTooDark$overrideFog(Camera camera, FogRenderer.FogMode fogMode,
             float farPlaneDistance, boolean isFoggy, float partialTick, CallbackInfo ci) {
         if (!SuffocationState.shouldApplyDarkness()) return;
