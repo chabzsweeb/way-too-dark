@@ -15,6 +15,7 @@ public class FogRendererMixin {
     private void wayTooDark$overrideFog(CallbackInfo ci) {
         if (!SuffocationState.shouldApplyDarkness()) return;
         SuffocationState.setDynamicLightBoost(DynamicLightAdapter.getDynamicLightRadius());
+        RenderSystem.setShaderFogColor(0.0F, 0.0F, 0.0F, 1.0F);
         RenderSystem.setShaderFogStart(0.0F);
         RenderSystem.setShaderFogEnd(SuffocationState.getEffectiveFogRadius());
     }
