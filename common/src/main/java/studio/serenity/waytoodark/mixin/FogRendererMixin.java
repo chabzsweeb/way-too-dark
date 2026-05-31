@@ -1,8 +1,8 @@
 package studio.serenity.waytoodark.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.BackgroundRenderer;
+import net.minecraft.client.Camera;
+import net.minecraft.client.renderer.FogRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,16 +10,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import studio.serenity.waytoodark.DynamicLightAdapter;
 import studio.serenity.waytoodark.SuffocationState;
 
-@Mixin(BackgroundRenderer.class)
+@Mixin(FogRenderer.class)
 public class FogRendererMixin {
 
     @Inject(method = "method_24873", at = @At("RETURN"), remap = false)
     private static void wayTooDark$overrideFog(
             Camera camera,
-            net.minecraft.client.render.BackgroundRenderer.FogType fogType,
+            FogRenderer.FogMode fogMode,
             float viewDistance,
-            boolean thickFog,
-            float tickDelta,
+            int i,
+            int j,
+            int k,
             CallbackInfoReturnable<Float> cir) {
         if (!SuffocationState.shouldApplyDarkness()) return;
         SuffocationState.setDynamicLightBoost(DynamicLightAdapter.getDynamicLightRadius());
