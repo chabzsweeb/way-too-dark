@@ -10,8 +10,7 @@ import net.minecraft.world.level.LightLayer;
 public final class SuffocationState {
     public static final long  NIGHT_START     = 13_000L;
     public static final long  NIGHT_END       = 23_000L;
-    public static final float BASE_FOG_RADIUS = 0.1F;
-    private static volatile float dynamicLightBoost = 0.0F;
+    private static volatile double savedGamma = 0.5;
 
     private SuffocationState() {}
 
@@ -26,14 +25,12 @@ public final class SuffocationState {
         return mc.level.getBrightness(LightLayer.SKY, eyePos) == 0;
     }
 
-    public static float getEffectiveFogRadius() {
-        return BASE_FOG_RADIUS + Math.max(0.0F, dynamicLightBoost);
+    public static void saveThenZeroGamma(Minecraft mc) {
+        savedGamma = mc.options.gamma().get();
+        mc.options.gamma().set(0.0);
     }
 
-    public static void setDynamicLightBoost(float blocks) {
-        dynamicLightBoost = Math.max(0.0F, blocks);
+    public static void restoreGamma(Minecraft mc) {
+        mc.options.gamma().set(savedGamma);
     }
-
-    public static void saveThenZeroGamma(Minecraft mc) {}
-    public static void restoreGamma(Minecraft mc) {}
 }
