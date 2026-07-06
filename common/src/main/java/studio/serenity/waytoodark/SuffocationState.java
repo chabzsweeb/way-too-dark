@@ -8,8 +8,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 
 public final class SuffocationState {
-    public static final long  NIGHT_START     = 13_000L;
-    public static final long  NIGHT_END       = 23_000L;
+
+    public static final long NIGHT_START = 13_000L;
+    public static final long NIGHT_END   = 23_000L;
+
     private static volatile double savedGamma = 0.5;
 
     private SuffocationState() {}
@@ -21,7 +23,8 @@ public final class SuffocationState {
         final long dayTime = mc.level.getDayTime() % 24_000L;
         if (dayTime >= NIGHT_START && dayTime <= NIGHT_END) return true;
         final Vec3 eye = mc.player.getEyePosition();
-        final BlockPos eyePos = new BlockPos(Mth.floor(eye.x), Mth.floor(eye.y), Mth.floor(eye.z));
+        final BlockPos eyePos = new BlockPos(
+            Mth.floor(eye.x), Mth.floor(eye.y), Mth.floor(eye.z));
         return mc.level.getBrightness(LightLayer.SKY, eyePos) == 0;
     }
 
